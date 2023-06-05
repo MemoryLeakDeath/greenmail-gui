@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="container" th:fragment="content">
+    <h1 th:text="#{text.inbox.header} + ${userData.email}"></h1>
+    <table>
+       <thead>
+           <tr>
+               <th th:text="#{text.email.table.date}"></th>
+               <th th:text="#{text.email.table.from}"></th>
+               <th th:text="#{text.email.table.subject}"></th>
+               <th th:text="#{text.email.table.message}"></th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr th:each="message : ${userData.inboxMessages}">
+               <td th:text="${pageHelper.formatDateLong(${message.receivedDate})}"></td>
+               <td th:text="${message.mimeMessage.from}"></td>
+               <td th:text="${message.mimeMessage.subject}"></td>
+               <td th:text="${message.mimeMessage.content}"></td>
+           </tr>
+       </tbody>
+    </table>
+</div>
+</html>

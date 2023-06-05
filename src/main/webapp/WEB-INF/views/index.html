@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-</head>
-<body>
-    <div class="container" th:fragment="content">
-        <h1 th:text="${helloMsg}"/>
-	    <form th:action="@{/logout}" method="POST">
-	      <button type="submit" role="button" class="btn btn-primary">Logout</button>
-	    </form>
-	    
-	    <a th:href="@{/registration/}">Register User</a>
-    </div>
-</body>
+<div class="container" th:fragment="content">
+    <h1 th:text="#{text.users}"></h1>
+	<table>
+	   <thead>
+	       <tr>
+	           <th th:text="#{text.table.user}"></th>
+	           <th th:text="#{text.table.count}"></th>
+	       </tr>
+	   </thead>
+	   <tbody>
+	       <tr class="userSelection" th:each="user : ${userData.userData}" th:attr="data-email=${userData.email}">
+	           <td th:text="${userData.email}"></td>
+	           <td th:text="${userData.totalInboxMessages}"></td>
+	       </tr>
+	   </tbody>
+	</table>
+	<form id="viewEmailForm" th:action="@{/email/view/}" method="POST" accept-charset="UTF-8">
+	   <input type="hidden" name="email" value="">
+	</form>
+</div>
+<script type="text/javascript">
+   $('.userSelection').click(viewUserEmails);
+   
+   function viewUserEmails() {
+	   var email = $(this).data('email');
+	   var emailForm = $('#viewEmailForm');
+	   
+	   emailForm.find('input [name="email"]').val(email);
+	   emailForm.submit();
+   }
+</script>
 </html>

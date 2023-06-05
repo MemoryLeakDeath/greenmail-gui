@@ -17,8 +17,16 @@ public class PageHelperUtil {
         return DateFormatUtils.format(date, LONG_DATE_FORMAT, timeZone, locale);
     }
 
+    public String formatDateLong(Date date) {
+        return formatDateLong(date, TimeZone.getDefault(), Locale.US);
+    }
+
     public String formatDateShort(Date date, TimeZone timeZone, Locale locale) {
         return DateFormatUtils.format(date, SHORT_DATE_FORMAT, timeZone, locale);
+    }
+
+    public String formatDateShort(Date date) {
+        return formatDateShort(date, TimeZone.getDefault(), Locale.US);
     }
 
     public String htmlEscape(String html) {
