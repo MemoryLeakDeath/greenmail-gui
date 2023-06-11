@@ -10,25 +10,15 @@
 	       </tr>
 	   </thead>
 	   <tbody>
-	       <tr class="userSelection" th:each="user : ${userData.userData}" th:attr="data-email=${userData.email}">
-	           <td th:text="${userData.email}"></td>
-	           <td th:text="${userData.totalInboxMessages}"></td>
+	       <tr class="userSelection" th:each="user : ${userData.userData}" th:attr="data-email=${user.email}">
+	           <td th:text="${user.email}"></td>
+	           <td th:text="${user.totalInboxMessages}"></td>
 	       </tr>
 	   </tbody>
 	</table>
-	<form id="viewEmailForm" th:action="@{/email/view/}" method="POST" accept-charset="UTF-8">
+	<form id="viewEmailForm" th:action="@{/email/view}" method="POST" accept-charset="UTF-8">
 	   <input type="hidden" name="email" value="">
 	</form>
+	<script th:src="@{/js/index.js}" type="text/javascript"></script>
 </div>
-<script type="text/javascript">
-   $('.userSelection').click(viewUserEmails);
-   
-   function viewUserEmails() {
-	   var email = $(this).data('email');
-	   var emailForm = $('#viewEmailForm');
-	   
-	   emailForm.find('input [name="email"]').val(email);
-	   emailForm.submit();
-   }
-</script>
 </html>

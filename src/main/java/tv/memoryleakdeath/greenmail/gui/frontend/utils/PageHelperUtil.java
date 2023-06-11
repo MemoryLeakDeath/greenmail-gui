@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PageHelperUtil {
-    private static final String LONG_DATE_FORMAT = "ccc d LLLL yyyy K:mm:ss a zzz";
+    private static final String LONG_DATE_FORMAT = "EEE d MMMM yyyy K:mm:ss a zzz";
     private static final String SHORT_DATE_FORMAT = "L/dd/yyyy K:mm:ss a zzz";
 
     public String formatDateLong(Date date, TimeZone timeZone, Locale locale) {
