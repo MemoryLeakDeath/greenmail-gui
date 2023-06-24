@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.icegreen.greenmail.store.StoredMessage;
 
+import jakarta.mail.internet.InternetAddress;
+
 public class MailUserDataModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,5 +37,9 @@ public class MailUserDataModel implements Serializable {
 
     public void setInboxMessages(List<StoredMessage> inboxMessages) {
         this.inboxMessages = inboxMessages;
+    }
+
+    public String getFromAddress(InternetAddress address) {
+        return address.getAddress();
     }
 }
