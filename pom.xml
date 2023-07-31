@@ -18,7 +18,7 @@
         <mockito.version>5.4.0</mockito.version>
         <hamcrest.version>2.2</hamcrest.version>
         <jsonpath.version>2.8.0</jsonpath.version>
-        <commonslang.version>3.12.0</commonslang.version>
+        <commonslang.version>3.13.0</commonslang.version>
         <commonstext.version>1.10.0</commonstext.version>
         <faker.version>2.0.1</faker.version>
         <greenmail.version>2.1.0-alpha-1</greenmail.version>
