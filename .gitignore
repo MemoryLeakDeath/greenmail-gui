@@ -28,3 +28,4 @@ replay_pid*
 /node/
 /node_modules/
 /target/
+/logs/

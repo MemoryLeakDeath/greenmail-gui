@@ -8,7 +8,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>        
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>   
+		<tomcatapp.version>10.1.11</tomcatapp.version>
+        <tomcatjdk.version>jdk17</tomcatjdk.version>
         <spring.framework.version>6.0.11</spring.framework.version>
         <servlet.api.version>6.0.0</servlet.api.version>
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
@@ -303,6 +305,80 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+			    <groupId>io.fabric8</groupId>
+			    <artifactId>docker-maven-plugin</artifactId>
+			    <version>0.43.2</version>
+			    <configuration>
+					<dockerHost>${env.DOCKER_HOST}</dockerHost>
+					<autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+					<images>
+						<image>
+							<name>greenmail-app</name>
+							<alias>greenmail-app</alias>
+				            <build>
+							  <from>tomcat:${tomcatapp.version}-${tomcatjdk.version}</from>
+							  <assemblies>
+					              <assembly>
+									<name>tomcat-conf</name>
+					                <mode>dir</mode>
+					                <targetDir>/usr/local/tomcat/conf</targetDir>
+					                <inline>
+					                  <files>
+					                    <file>
+					                      <source>${project.basedir}/conf/server.xml</source>
+					                    </file>
+					                  </files>
+					                </inline>
+					              </assembly>								  
+					              <assembly>
+									<name>tomcat-keystore</name>
+					                <mode>dir</mode>
+					                <targetDir>/app/hex/conf</targetDir>
+					                <inline>
+					                  <files>
+					                    <file>
+					                      <source>${project.basedir}/conf/local_keystore.jks</source>
+					                    </file>
+					                  </files>
+					                </inline>
+					              </assembly>								  
+							  </assemblies>
+				            </build>
+				            <run>
+								<env>
+									<JPDA_OPTS>-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=n</JPDA_OPTS>
+								</env>
+								<cmd>/usr/local/tomcat/bin/catalina.sh jpda run</cmd>
+								<network>
+									<mode>custom</mode>
+									<name>hex-network</name>
+									<alias>greenmail-app</alias>
+								</network>
+							    <restartPolicy>
+									<name>always</name>
+								</restartPolicy>
+								<ports>
+									<port>18000:8000</port>
+									<port>18080:8080</port>
+									<port>18443:8443</port>
+									<port>18005:8005</port>
+									<port>10025:10025</port>
+								</ports>
+								<volumes>
+									<bind>
+										<volume>${project.basedir}/src/main/webapp/META-INF:/usr/local/tomcat/webapps/greenmail-gui/META-INF</volume>
+										<volume>${project.basedir}/src/main/webapp/WEB-INF:/usr/local/tomcat/webapps/greenmail-gui/WEB-INF</volume>
+										<volume>${project.build.outputDirectory}:/usr/local/tomcat/webapps/greenmail-gui/WEB-INF/classes</volume>
+										<volume>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib:/usr/local/tomcat/webapps/greenmail-gui/WEB-INF/lib</volume>
+										<volume>${project.basedir}/logs:/usr/local/tomcat/logs</volume>
+									</bind>
+								</volumes>
+							</run>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
         </plugins>        
     </build>
 </project>
