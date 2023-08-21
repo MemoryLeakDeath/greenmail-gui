@@ -23,7 +23,7 @@
         <commonslang.version>3.13.0</commonslang.version>
         <commonstext.version>1.10.0</commonstext.version>
         <faker.version>2.0.1</faker.version>
-        <greenmail.version>2.1.0-alpha-1</greenmail.version>
+        <greenmail.version>2.1.0-alpha-2</greenmail.version>
     </properties>
     <dependencyManagement>
         <dependencies>
