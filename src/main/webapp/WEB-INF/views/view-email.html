@@ -14,9 +14,9 @@
        <tbody>
            <tr th:each="message : ${userData.inboxMessages}">
                <td th:text="${pageHelper.formatDateLong(message.receivedDate)}"></td>
-               <td th:text="${userData.getFromAddress(message.mimeMessage.from[0])}"></td>
-               <td th:text="${message.mimeMessage.subject}"></td>
-               <td th:text="${message.mimeMessage.content}"></td>
+               <td th:text="${message.from}"></td>
+               <td th:text="${message.subject}"></td>
+               <td><pre th:text="${message.body}"></pre></td>
            </tr>
        </tbody>
     </table>

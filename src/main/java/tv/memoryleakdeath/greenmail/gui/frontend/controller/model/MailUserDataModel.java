@@ -13,7 +13,7 @@ public class MailUserDataModel implements Serializable {
 
     private String email;
     private int totalInboxMessages;
-    private List<StoredMessage> inboxMessages;
+    private List<MailMessageModel> inboxMessages;
 
     public String getEmail() {
         return email;
@@ -31,11 +31,11 @@ public class MailUserDataModel implements Serializable {
         this.totalInboxMessages = totalInboxMessages;
     }
 
-    public List<StoredMessage> getInboxMessages() {
+    public List<MailMessageModel> getInboxMessages() {
         return inboxMessages;
     }
 
-    public void setInboxMessages(List<StoredMessage> inboxMessages) {
+    public void setInboxMessages(List<MailMessageModel> inboxMessages) {
         this.inboxMessages = inboxMessages;
     }
 

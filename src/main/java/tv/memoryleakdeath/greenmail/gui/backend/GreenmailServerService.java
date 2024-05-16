@@ -16,7 +16,7 @@ import com.icegreen.greenmail.util.ServerSetup;
 @Service("GreenmailServerService")
 public class GreenmailServerService {
     private static final Logger logger = LoggerFactory.getLogger(GreenmailServerService.class);
-    private static final int DEFAULT_SMTP_PORT = 10025;
+    private static final int DEFAULT_SMTP_PORT = 25;
     private static final String DEFAULT_HOST = "0.0.0.0";
 
     private SmtpServer smtpServer;
